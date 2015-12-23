@@ -30,13 +30,25 @@ from selenium import webdriver
 
 DS_USER = os.environ.get('DS_USER')
 DS_PASS = os.environ.get('DS_PASS')
+TRAVIS_JOB_NUMBER = os.environ.get('TRAVIS_JOB_NUMBER')
+SAUCE_USERNAME = os.environ.get('SAUCE_USERNAME')
+SAUCE_ACCESS_KEY = os.environ.get('SAUCE_ACCESS_KEY')
+
 DS_LOGIN_URL = 'https://id.dreamschool.fi/login/educloud-test/'
 
 
 class TestMpassLoginToDreamSchool(unittest.TestCase):
 
   def setUp(self):
-    self.driver = webdriver.Firefox()
+    if TRAVIS_JOB_NUMBER and SAUCE_USERNAME and SAUCE_ACCESS_KEY:
+      self.driver = webdriver.Remote(
+        desired_capabilities=webdriver.DesiredCapabilities.FIREFOX,
+        command_executor='http://%s:%s@ondemand.saucelabs.com:80/wd/hub' %
+        (SAUCE_USERNAME, SAUCE_ACCESS_KEY)
+        )
+    else:
+      self.driver = webdriver.Firefox()
+
     self.driver.implicitly_wait(10)
 
   def test_login_via_mpass_with_ds_credentials(self):

@@ -4,3 +4,5 @@ python:
 install:
   - pip install -r requirements.txt
 script: python test_mpass.py
+addons:
+  sauce_connect: true
