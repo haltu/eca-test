@@ -10,6 +10,13 @@ This repository contains the functional tests which are
 run periodically to test the environment is working and
 functioning properly.
 
+The Beta environment contains the following services:
+
+* https://github.com/educloudalliance/eca-auth-data
+* https://github.com/educloudalliance/eca-auth-connector
+* https://github.com/educloudalliance/eca-auth-proxy
+
+
 Contributing tests
 ==================
 
