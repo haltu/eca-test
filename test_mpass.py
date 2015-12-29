@@ -78,7 +78,7 @@ class TestMpassLoginToDreamSchool(unittest.TestCase):
     self.assertIn('my.dreamschool.fi', d.current_url)
 
   def tearDown(self):
-    self.driver.close()
+    self.driver.quit()
 
 if __name__ == "__main__":
   unittest.main(verbosity=2)
