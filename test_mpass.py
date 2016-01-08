@@ -95,7 +95,7 @@ class TestMpassLoginToDreamSchool(unittest.TestCase):
     self.assertIn('my.dreamschool.fi', d.current_url)
 
   def tearDown(self):
-    print "VIDEO: https://saucelabs.com/rest/v1/%s/jobs/%s/assets/video.flv" % (SAUCE_USERNAME, self.driver.session_id)
+    print "\nVIDEO: https://saucelabs.com/rest/v1/%s/jobs/%s/assets/video.flv" % (SAUCE_USERNAME, self.driver.session_id)
     self.driver.quit()
 
 if __name__ == "__main__":
