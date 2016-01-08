@@ -53,6 +53,7 @@ class TestMpassLoginToDreamSchool(unittest.TestCase):
       capabilities['name'] = 'Test login to Dreamschool via %s mpass' % os.environ.get('TEST_ENV', 'testing').capitalize()
       capabilities['tags'] = [os.environ.get('TEST_ENV', 'testing')]
       capabilities['custom-data'] = {'login_url': DS_LOGIN_URL}
+      capabilities['recordLogs'] = False
 
       self.driver = webdriver.Remote(
         desired_capabilities=capabilities,
