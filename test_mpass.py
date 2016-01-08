@@ -49,8 +49,13 @@ class TestMpassLoginToDreamSchool(unittest.TestCase):
 
   def setUp(self):
     if TRAVIS_JOB_NUMBER and SAUCE_USERNAME and SAUCE_ACCESS_KEY:
+      capabilities = webdriver.DesiredCapabilities.FIREFOX
+      capabilities['name'] = u'Test login to Dreamschool'
+      capabilities['tags'] = [os.environ.get('TEST_ENV', 'testing')]
+      capabilities['custom-data'] = {'login_url': DS_LOGIN_URL}
+
       self.driver = webdriver.Remote(
-        desired_capabilities=webdriver.DesiredCapabilities.FIREFOX,
+        desired_capabilities=capabilities,
         command_executor='http://%s:%s@ondemand.saucelabs.com:80/wd/hub' %
         (SAUCE_USERNAME, SAUCE_ACCESS_KEY)
         )
