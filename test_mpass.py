@@ -35,6 +35,8 @@ SAUCE_USERNAME = os.environ.get('SAUCE_USERNAME')
 SAUCE_ACCESS_KEY = os.environ.get('SAUCE_ACCESS_KEY')
 
 DS_LOGIN_URL = 'https://id.dreamschool.fi/login/educloud-test/'
+if os.environ.get('LOGIN_URL'):
+  DS_LOGIN_URL = os.environ.get('LOGIN_URL')
 
 
 class TestMpassLoginToDreamSchool(unittest.TestCase):
