@@ -33,10 +33,16 @@ DS_PASS = os.environ.get('DS_PASS')
 TRAVIS_JOB_NUMBER = os.environ.get('TRAVIS_JOB_NUMBER')
 SAUCE_USERNAME = os.environ.get('SAUCE_USERNAME')
 SAUCE_ACCESS_KEY = os.environ.get('SAUCE_ACCESS_KEY')
+TEST_ENV = os.environ.get('TEST_ENV', 'testing')  # testing or production
+if TEST_ENV == 'production':
+  TEST_ENV = False
+else:
+  TEST_ENV = True
 
-DS_LOGIN_URL = 'https://id.dreamschool.fi/login/educloud-test/'
-if os.environ.get('LOGIN_URL'):
-  DS_LOGIN_URL = os.environ.get('LOGIN_URL')
+if TEST_ENV:
+  DS_LOGIN_URL = 'https://id.dreamschool.fi/login/educloud-test/'
+else:
+  DS_LOGIN_URL = 'https://id.dreamschool.fi/login/educloud/'
 
 
 class TestMpassLoginToDreamSchool(unittest.TestCase):
@@ -58,7 +64,11 @@ class TestMpassLoginToDreamSchool(unittest.TestCase):
     d.get(DS_LOGIN_URL)
 
     # Should redirect to mpass-proxy
-    self.assertIn('mpass-proxy-test', d.current_url)
+    if TEST_ENV:
+      proxy_host = 'mpass-proxy-test'
+    else:
+      proxy_host = 'mpass-proxy'
+    self.assertIn(proxy_host, d.current_url)
 
     # Choose Dreamschool
     d.find_element_by_class_name('dreamschool').click()
